@@ -6,6 +6,8 @@ authors = ["Valery Lazarev <lzrv@feip.co>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+requests = "^2.27.1"
+pyTelegramBotAPI = "^4.4.0"
 
 [tool.poetry.dev-dependencies]
 
