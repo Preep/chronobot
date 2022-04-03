@@ -72,6 +72,7 @@ def sanitize_message(parsed_dict: dict) -> dict:
         error = '‼️Слишком длинный текст.'
 
     if parsed_dict['start_hour'] is not None and parsed_dict['end_hour'] is not None:
+        # TODO: Sanitizing of time fields only affects error messages. Should be fixed.
         start_time = datetime(now.year, now.month, now.day, parsed_dict['start_hour'], parsed_dict['start_minute'])
         end_time = datetime(now.year, now.month, now.day, parsed_dict['end_hour'], parsed_dict['end_minute'])
     elif parsed_dict['end_hour'] is not None:
@@ -80,6 +81,8 @@ def sanitize_message(parsed_dict: dict) -> dict:
     else:
         start_time = None
         end_time = None
+
+    start_time, end_time = [time.strftime('%Y-%m-%d %H:%M') if time is not None else None for time in [start_time, end_time]]
 
     sanitized_dict = {
         'error': error,
