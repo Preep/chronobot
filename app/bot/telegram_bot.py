@@ -20,14 +20,16 @@ def __start_handler(message: Message):
 def __text_handler(message: Message):
 
     parsed_message_dict = parse_and_sanitize(message.text)
-    bot.send_message(message.chat.id, str(parsed_message_dict))
+    parsed_message_dict['chat_id'] = message.chat.id
 
-    # if ok:
+    if parsed_message_dict['error'] is None:
+        bot.send_message(message.chat.id, str(parsed_message_dict))
         # Show color menu
-        # Send parsed text and color to IO handler
-    # else:
-        # Show error message
+        # Send parsed data and chosen color to IO handler
+    else:
+        bot.send_message(message.chat.id, parsed_message_dict['error'])
 
 
 def start_polling():
-    bot.infinity_polling()
+    # bot.infinity_polling()
+    bot.polling()
